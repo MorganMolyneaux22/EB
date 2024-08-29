@@ -51,7 +51,7 @@ class NewProduction : AppCompatActivity() {
 
     fun do_save_button(jobNumber: Int, segment: Int, quantity: Int) {
         // Log the job number to the console
-        Log.i("CS3680", "Saving production with Job Number: $jobNumber, ID: $segment, Quantity $quantity")
+//        Log.i("CS3680", "Saving production with Job Number: $jobNumber, ID: $segment, Quantity $quantity")
 
         // Saves data from new production Page, and reroutes to Home Screen (MainActivity)
         val intent = Intent(this, MainActivity::class.java)
