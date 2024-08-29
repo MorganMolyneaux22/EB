@@ -11,6 +11,10 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+// Author: Morgan Molyneaux
+// Program Purpose: Demonstrate a basic understanding of using buttons and event listeners in Kotlin.
+// This program further explores the use of event listeners to manipulate data within text fields
+// and subsequently display the modified data to the user.
 
 class MainActivity : AppCompatActivity() {
 
@@ -72,6 +76,11 @@ class MainActivity : AppCompatActivity() {
         startActivity(intent)
     }
 
+    fun do_edit_button(){
+        // Moves user from MainActivity Page to Edit Production
+        Log.i("MainCS3680", "still in development")
+    }
+
     fun list_total_jobs() {
         // List the Total Jobs compeleted for the day, and increments by 1 to update to SharePreference Session storage
         val total_jobs: TextView = findViewById(R.id.main_total_jobs_display)
@@ -94,6 +103,7 @@ class MainActivity : AppCompatActivity() {
         val saved_quantity = sharedPreferences.getInt("total_quantity", 0)
 
         val new_value = saved_quantity + quantity
+
 
         // Save the new value in Shared Preferences
         with(sharedPreferences.edit()) {
