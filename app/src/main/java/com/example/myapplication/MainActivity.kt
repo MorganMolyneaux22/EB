@@ -1,16 +1,15 @@
 package com.example.myapplication
 
 import android.content.Context
-import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
 import android.util.Log
 import android.widget.Button
 import android.widget.TextView
-import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
+import com.example.myapplication.JobOrder  // Import your JobOrder class
+import com.example.myapplication.ListManager  // Import your ListManager class
+
 // Author: Morgan Molyneaux
 // Program Purpose: Demonstrate a basic understanding of using buttons and event listeners in Kotlin.
 // This program further explores the use of event listeners to manipulate data within text fields
@@ -18,100 +17,95 @@ import androidx.core.view.WindowInsetsCompat
 
 class MainActivity : AppCompatActivity() {
 
-    lateinit var new_button: Button
+    // Declare UI elements (buttons) and shared preferences
+    private lateinit var clearButton: Button
+    private lateinit var populateButton: Button
+    private lateinit var printButton: Button
+    private lateinit var deleteButton: Button
     private lateinit var sharedPreferences: SharedPreferences
+
+    // Declare ListManager to manage the job orders
+    private val listManager = ListManager()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
         setContentView(R.layout.activity_main)
 
         // Initialize Shared Preferences
         // https://developer.android.com/develop/ui/views/components/settings/use-saved-values
         sharedPreferences = getSharedPreferences("MyAppPrefs", Context.MODE_PRIVATE)
 
+        // Initialize UI buttons
+        clearButton = findViewById(R.id.clear_button)
+        populateButton = findViewById(R.id.populate_button)
+        printButton = findViewById(R.id.print_button)
+        deleteButton = findViewById(R.id.delete_button)
+
+        // Set onClick listeners for buttons
+        clearButton.setOnClickListener { clearJobs() }
+        populateButton.setOnClickListener { populateJobs() }
+        printButton.setOnClickListener { printJobs() }
+        deleteButton.setOnClickListener { deleteJob() }
+
         // Adding a try-catch block to catch any potential issues
-        // Essential line as trying to initalize object on App Startup will cause a crash due to the
+        // Essential line as trying to initialize object on App Startup will cause a crash due to the
         // Session storage not existing yet.
         try {
-            val saved_job_count = sharedPreferences.getInt("total_jobs", 0)
-            val saved_quantity_count = sharedPreferences.getInt("total_quantity", 0)
-            Log.d("MainActivity", "Saved job count: $saved_job_count")
-            Log.d("MainActivity", "Saved quantity count: $saved_quantity_count")
-            val total_jobs: TextView = findViewById(R.id.main_total_jobs_display)
-            total_jobs.text = saved_job_count.toString()
+            val savedJobCount = sharedPreferences.getInt("total_jobs", 0)
+            val totalJobsTextView: TextView = findViewById(R.id.main_total_jobs_display)
+            totalJobsTextView.text = savedJobCount.toString()
         } catch (e: Exception) {
             Log.e("MainActivity", "SharedPreferences fetch error:", e)
         }
-
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main_table)) { v, insets ->
-            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
-            insets
-        }
-        // Set listener to track and find when new button is clicked.
-        new_button = findViewById(R.id.new_production)
-        new_button.setOnClickListener { do_new_button() }
-
-        // Retrieve the values from the intent from new production page that is passed over
-        val jobNumber = intent.getIntExtra("Job_Number", -1)
-        val segmentId = intent.getIntExtra("Segment_ID", -1)
-        val quantity = intent.getIntExtra("Quantity", -1)
-        // Log.i("MainCS3680", "Values from new production - Job Number: $jobNumber, Segment ID: $segmentId, Quantity: $quantity")
-
-        // Check for valid user input from New Production page and avoid adding jobs completed when not actually.
-        if (jobNumber != -1 && segmentId != -1 && quantity != -1) {
-            Log.i("MainCS3680", "Values from new production - Job Number: $jobNumber, Segment ID: $segmentId, Quantity: $quantity")
-            list_total_jobs()
-            add_quantities(quantity)
-        } else {
-            Log.i("MainCS3680", "No values received from new production")
-        }
     }
 
-    fun do_new_button() {
-        // Moves user from MainActivity Page to New Production
-        Log.i("CS3680", "Creating New Production")
-        val intent = Intent(this, NewProduction::class.java)
-        startActivity(intent)
+    // Action for "Clear Jobs" button - Clears all jobs
+    private fun clearJobs() {
+        listManager.clearList()  // Clear the list of jobs
+        Log.i("MainActivity", "All jobs cleared")
+        val totalJobsTextView: TextView = findViewById(R.id.main_total_jobs_display)
+        totalJobsTextView.text = "0" // Reset the total job display to 0
     }
 
-    fun do_edit_button(){
-        // Moves user from MainActivity Page to Edit Production
-        Log.i("MainCS3680", "still in development")
+    // Action for "Populate Jobs" button - Adds predefined jobs
+    private fun populateJobs() {
+        val jobData = """
+            0; April 10, 2024; 5M; Eastberry Lane; Doofus Mcgee
+            1; May 5, 2024; Alpha Corp; Sunset Boulevard; John Doe
+            2; June 12, 2024; Beta LLC; Maple Street; Jane Smith
+            3; July 20, 2024; Gamma Inc; Oak Avenue; Rick Sanchez
+            4; August 15, 2024; Delta Enterprises; Pine Road; Morty Smith
+            5; September 1, 2024; Epsilon Co; Cedar Drive; Summer Smith
+            6; October 30, 2024; Zeta Solutions; Birch Lane; Beth Smith
+        """.trim()
+        listManager.createList(jobData)
+        Log.i("MainActivity", "Job list populated")
+        updateJobCountDisplay()
     }
 
-    fun list_total_jobs() {
-        // List the Total Jobs compeleted for the day, and increments by 1 to update to SharePreference Session storage
-        val total_jobs: TextView = findViewById(R.id.main_total_jobs_display)
-        val current_value = total_jobs.text.toString().toInt()
+    // Action for "Print Jobs" button - Prints the list of jobs to the log
+    private fun printJobs() {
+        listManager.printList()
+        Log.i("MainActivity", "Job list printed")
+    }
 
-        val new_value = current_value + 1
+    // Action for "Delete Job" button - Deletes a job by ID
+    private fun deleteJob() {
+        val jobIdToDelete = 3  // Example hardcoded ID; modify to delete dynamic IDs if needed
+        listManager.deleteItemByID(jobIdToDelete)
+        Log.i("MainActivity", "Job with ID $jobIdToDelete deleted")
+        updateJobCountDisplay()
+    }
 
-        // Save the new value in Shared Preferences
+    // Helper function to update the job count display
+    private fun updateJobCountDisplay() {
+        val totalJobsTextView: TextView = findViewById(R.id.main_total_jobs_display)
+        totalJobsTextView.text = listManager.getTotalJobs().toString()
+
+        // Save the new job count in SharedPreferences
         with(sharedPreferences.edit()) {
-            putInt("total_jobs", new_value)
+            putInt("total_jobs", listManager.getTotalJobs())
             apply()
         }
-
-        total_jobs.text = new_value.toString()
-    }
-
-    fun add_quantities(quantity: Int) {
-        // Adds the quantities from all production reports created for that day (or each span).
-        val total_footage : TextView = findViewById(R.id.main_total_footage_display)
-        val saved_quantity = sharedPreferences.getInt("total_quantity", 0)
-
-        val new_value = saved_quantity + quantity
-
-
-        // Save the new value in Shared Preferences
-        with(sharedPreferences.edit()) {
-            putInt("total_quantity", new_value)
-            apply()
-        }
-        // Set the total_footage equal to the new footage after adding
-        total_footage.text = new_value.toString()
-
     }
 }
