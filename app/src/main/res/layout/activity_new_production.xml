@@ -1,140 +1,196 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main_table"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#f8f7ff"
     tools:context=".NewProduction">
+
+    <!-- Navbar -->
+    <FrameLayout
+        android:id="@+id/navbar"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:background="#FBC02D"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/navbar_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="NEAUX GIS"
+            android:textColor="#000000"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+    </FrameLayout>
+
+    <!-- Header -->
+
+    <!-- Foreman and Address Fields -->
+
+    <!-- Job and ID Fields -->
+
+    <!-- Quantity Field -->
+
+    <!-- Checkboxes -->
+
+    <!-- Save Button -->
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:gravity="center_horizontal"
+        android:orientation="horizontal"
+        android:padding="8dp"
+        app:layout_constraintTop_toBottomOf="@+id/new_quantity_number"
+        tools:layout_editor_absoluteX="0dp">
+
+        <CheckBox
+            android:id="@+id/new_spliced_check"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:buttonTint="#0288D1"
+            android:text="Spliced"
+            android:textColor="#000000" />
+
+        <View
+            android:layout_width="16dp"
+            android:layout_height="match_parent" />
+
+        <CheckBox
+            android:id="@+id/new_drop_over_check"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:buttonTint="#0288D1"
+            android:text="Drop over 100'"
+            android:textColor="#000000" />
+    </LinearLayout>
 
     <TextView
         android:id="@+id/textView"
-        android:layout_width="257dp"
-        android:layout_height="61dp"
-        android:layout_marginTop="96dp"
-        android:background="#6750A3"
+        android:layout_width="418dp"
+        android:layout_height="75dp"
+        android:layout_marginTop="48dp"
+        android:background="#4F4C44"
         android:fontFamily="sans-serif-black"
-        android:paddingLeft="40dp"
-        android:paddingTop="12dp"
+        android:gravity="center"
+        android:padding="12dp"
         android:text="New Production"
         android:textColor="#FFFFFF"
         android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/navbar" />
 
     <EditText
         android:id="@+id/new_quantity_number"
-        android:layout_width="93dp"
-        android:layout_height="39dp"
-        android:layout_marginTop="28dp"
-        android:ems="10"
-        android:fontFamily="sans-serif-black"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginTop="20dp"
+        android:backgroundTint="#0288D1"
         android:hint="Quantity"
-        android:inputType="number"
-        android:paddingLeft="15dp"
+        android:padding="12dp"
+        android:textColor="#000000"
+        android:textColorHint="#757575"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/new_id_number" />
 
     <EditText
-        android:id="@+id/new_id_number"
-        android:layout_width="86dp"
-        android:layout_height="53dp"
-        android:layout_marginTop="168dp"
-        android:backgroundTint="#505050"
-        android:ems="10"
-        android:hint="ID"
-        android:inputType="number"
-        android:paddingLeft="39dp"
-        android:textAlignment="textStart"
+        android:id="@+id/new_job_number"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginTop="8dp"
+        android:backgroundTint="#0288D1"
+        android:hint="Job Number"
+        android:padding="12dp"
         android:textColor="#000000"
-        android:textColorHighlight="#AB2D2D"
-        android:textSize="16sp"
-        android:textStyle="bold"
-        android:visibility="visible"
+        android:textColorHint="#757575"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView"
-        tools:visibility="visible" />
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout2" />
 
     <EditText
-        android:id="@+id/new_job_number"
-        android:layout_width="139dp"
-        android:layout_height="46dp"
-        android:layout_marginTop="21dp"
-        android:ems="10"
-        android:fontFamily="sans-serif-black"
-        android:hint="Job Number"
-        android:inputType="number"
-        android:paddingLeft="20dp"
+        android:id="@+id/new_id_number"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginTop="8dp"
+        android:backgroundTint="#0288D1"
+        android:hint="UNIT ID"
+        android:padding="12dp"
         android:textColor="#000000"
+        android:textColorHint="#757575"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/new_foreman_name" />
+        app:layout_constraintTop_toBottomOf="@+id/new_job_number" />
 
-    <CheckBox
-        android:id="@+id/new_drop_over_check"
-        android:layout_width="145dp"
-        android:layout_height="46dp"
-        android:layout_marginStart="19dp"
-        android:layout_marginTop="44dp"
-        android:layout_marginEnd="62dp"
-        android:text="Drop over 100' "
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toEndOf="@+id/new_spliced_check"
-        app:layout_constraintTop_toBottomOf="@+id/new_quantity_number" />
+    <LinearLayout
+        android:id="@+id/linearLayout2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:gravity="center_horizontal"
+        android:orientation="horizontal"
+        android:padding="8dp"
+        app:layout_constraintTop_toBottomOf="@+id/textView"
+        tools:layout_editor_absoluteX="0dp">
 
-    <CheckBox
-        android:id="@+id/new_spliced_check"
-        android:layout_width="110dp"
-        android:layout_height="31dp"
-        android:layout_marginStart="72dp"
-        android:layout_marginTop="56dp"
-        android:text="Spliced "
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/new_quantity_number" />
+        <EditText
+            android:id="@+id/new_foreman_name"
+            android:layout_width="0dp"
+            android:layout_height="48dp"
+            android:layout_weight="1"
+            android:backgroundTint="#0288D1"
+            android:hint="Foreman"
+            android:padding="12dp"
+            android:textColor="#000000"
+            android:textColorHint="#757575" />
+
+        <View
+            android:layout_width="8dp"
+            android:layout_height="match_parent" />
+
+        <EditText
+            android:id="@+id/new_address_field"
+            android:layout_width="0dp"
+            android:layout_height="48dp"
+            android:layout_weight="1"
+            android:backgroundTint="#0288D1"
+            android:hint="Address"
+            android:padding="12dp"
+            android:textColor="#000000"
+            android:textColorHint="#757575" />
+    </LinearLayout>
 
     <Button
         android:id="@+id/new_save_button"
-        android:layout_width="159dp"
-        android:layout_height="58dp"
-        android:layout_marginBottom="92dp"
+        android:layout_width="200dp"
+        android:layout_height="50dp"
+        android:layout_marginBottom="16dp"
+        android:backgroundTint="#FBC02D"
+        android:elevation="4dp"
+        android:fontFamily="sans-serif-black"
+        android:shadowColor="#000000"
+        android:shadowDx="1"
+        android:shadowDy="1"
+        android:shadowRadius="1"
         android:text="Save"
+        android:textColor="#000000"
+        android:textSize="24sp"
         android:textStyle="bold"
+        android:typeface="serif"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
-
-    <EditText
-        android:id="@+id/new_address_field"
-        android:layout_width="125dp"
-        android:layout_height="41dp"
-        android:layout_marginTop="30dp"
-        android:layout_marginEnd="70dp"
-        android:ems="10"
-        android:fontFamily="sans-serif-black"
-        android:hint="Address"
-        android:inputType="textPostalAddress"
-        android:textAlignment="textStart"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView" />
-
-    <EditText
-        android:id="@+id/new_foreman_name"
-        android:layout_width="113dp"
-        android:layout_height="39dp"
-        android:layout_marginStart="75dp"
-        android:layout_marginTop="32dp"
-        android:layout_marginEnd="28dp"
-        android:ems="10"
-        android:fontFamily="sans-serif-black"
-        android:hint="Foreman"
-        android:inputType="text"
-        app:layout_constraintEnd_toStartOf="@+id/new_address_field"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView" />
-
 </androidx.constraintlayout.widget.ConstraintLayout>

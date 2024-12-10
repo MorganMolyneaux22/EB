@@ -193,7 +193,7 @@ class MainActivity : AppCompatActivity() {
     // Helper function to update the job count display
     private fun updateJobCountDisplay() {
         val totalJobs = jobOrderDatabase.getAllJobOrders().size
-        val totalJobsTextView: TextView = findViewById(R.id.main_total_jobs_display)
+        val totalJobsTextView: TextView = findViewById(R.id.drops_completed_value)
         totalJobsTextView.text = totalJobs.toString()
 
         // Save the new job count in SharedPreferences

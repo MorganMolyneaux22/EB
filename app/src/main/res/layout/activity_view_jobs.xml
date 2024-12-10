@@ -4,7 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#f8f7ff"
     tools:context=".ProductionOverview">
+
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/jobsRecyclerView"
@@ -27,8 +29,10 @@
         android:layout_height="46dp"
         android:layout_marginTop="37dp"
         android:layout_marginBottom="35dp"
+        android:backgroundTint="#FABF2D"
         android:text="BACK"
-        android:textSize="24sp"
+        android:textColor="#000000"
+        android:textSize="22sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/jobsRecyclerView"
         app:layout_constraintEnd_toEndOf="parent"
